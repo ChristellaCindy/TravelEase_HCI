@@ -1,0 +1,200 @@
+<!-- AMANNNN -->
+<!-- Home -->
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TravelEase</title>
+
+  <!-- Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <link rel="stylesheet" href="style.css" />
+
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm py-3">
+    <div class="container d-flex justify-content-between align-items-center">
+
+      <a class="navbar-brand mx-auto fw-bold" href="home.html" style="position: absolute;">
+        TravelEase
+      </a>
+
+      <div class="d-flex" style ="transform: translateX(210%);">
+        <ul class="navbar-nav flex-row">
+          <li class="nav-item me-3">
+            <a class="nav-link fw-bold" href="home.html">Beranda</a>
+          </li>
+          <li class="nav-item me-3">
+            <a class="nav-link" href="about.html">Tentang Kami</a>
+          </li>
+          <li class="nav-item me-3">
+            <a class="nav-link" href="contact.html">Kontak</a>
+          </li>
+          <li class ="nav-item">
+            <a class="nav-link" href="profile.html" title="Profil Saya">
+              <i class="fas fa-user-circle fa-lg"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </nav>
+
+  <header class="hero-section text-white text-center d-flex flex-column justify-content-center align-items-center py-5 position-relative">
+    <div class="overlay position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50"></div>
+    <div class="content position-relative z-1">
+      <h1 class="display-4 fw-bold mb-2" id="welcomeText">Hi, Username</h1>
+      <p class="lead text-light mb-4">TravelEase - Satu aplikasi untuk kebutuhan liburanmu</p>
+
+      <form id="searchForm" class="search-form-custom bg-white px-3 py-3 rounded text-dark w-100" style="max-width: 700px;">
+        <div class="text-center mb-3">
+          <h2 class="h6 fw-semibold mb-1">Ke mana tujuanmu?</h2>
+          <p class="small text-muted mb-0">Cari dan pesan tiket perjalananmu dengan mudah!</p>
+        </div>
+        <div class="row g-3 justify-content-center">
+          <div class="col-12 col-md-4">
+            <label for="start" class="form-label small">Dari</label>
+            <select id="start" name="start" class="form-select form-select-sm" required>
+              <option value="Jakarta">Jakarta</option>
+            </select>
+          </div>
+          <div class="col-12 col-md-4">
+            <label for="destination" class="form-label small">Ke</label>
+            <select id="destination" name="destination" class="form-select form-select-sm" required>
+              <option value="" disabled selected>Pilih Kota Tujuan</option>
+              <option value="Bali">Bali</option>
+              <option value="Yogyakarta">Yogyakarta</option>
+              <option value="Bandung">Bandung</option>
+              <option value="Lombok">Lombok</option>
+              <option value="Belitung">Belitung</option>
+              <option value="Medan">Medan</option>
+              <option value="Malang">Malang</option>
+              <option value="Pontianak">Pontianak</option>
+              <option value="Raja Ampat">Raja Ampat</option>
+            </select>
+          </div>
+          <div class="col-12 col-md-4">
+            <label for="departure-date" class="form-label small">Tanggal Keberangkatan</label>
+            <input type="date" id="departure-date" name="departure-date" class="form-control form-control-sm" required>
+          </div>
+          <div class="col-12 text-center mt-3">
+            <button type="submit" id="searchButton" class="btn btn-primary btn-sm px-4">Cari</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </header>
+
+  <!-- Paket -->
+  <section id="packages" class="container my-5">
+  <div class="row">
+    <div class="col-12 text-center">
+      <h2 class="fw-bold mb-4">Rekomendasi Kami</h2>
+    </div>
+  </div>
+    <div class="row g-4">
+
+            <!-- Bali -->
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <img src="Aset/bali" class="card-img-top" alt="Bali">
+          <div class="card-body">
+            <div class="text-center">
+              <h5 class="card-title fw-bold">Liburan ke Bali</h5>
+              <p class="card-text">Nikmati pantai, budaya, dan spa mewah di Ubud & Seminyak.</p>
+              <a href="bali.html" class="btn btn-outline-primary btn-sm view-button" id="viewButton" data-destination="Bali">Lihat Paket</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Yogyakarta -->
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <img src="Aset/yogya.avif" class="card-img-top" alt="Yogyakarta">
+          <div class="card-body">
+            <div class="text-center">
+              <h5 class="card-title fw-bold">Wisata Budaya Yogyakarta</h5>
+              <p class="card-text">Kunjungi Candi Borobudur, Keraton, dan kuliner khas Jogja.</p>
+              <a href="yogyakarta.html" class="btn btn-outline-primary btn-sm view-button" id="viewButton" data-destination="Yogyakarta">Lihat Paket</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bandung -->
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <img src="Aset/bandung" class="card-img-top" alt="Bandung">
+          <div class="card-body">
+            <div class="text-center">
+              <h5 class="card-title fw-bold">Petualangan Bandung</h5>
+              <p class="card-text">Kunjungi Kawah Putih, Lembang, dan wisata alam lainnya.</p>
+              <a href="bandung.html" class="btn btn-outline-primary btn-sm view-button" id="viewButton" data-destination="Bandung">Lihat Paket</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lombok -->
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <img src="Aset/lombok.avif" class="card-img-top" alt="Lombok">
+          <div class="card-body">
+            <div class="text-center">
+              <h5 class="card-title fw-bold">Eksotisme Lombok</h5>
+              <p class="card-text">Wisata pantai, Gili Trawangan, dan pesona alam Lombok.</p>
+              <a href="lombok.html" class="btn btn-outline-primary btn-sm view-button" id="viewButton" data-destination="Lombok">Lihat Paket</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Belitung -->
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <img src="Aset/belitung.jpg" class="card-img-top" alt="Belitung">
+          <div class="card-body">
+            <div class="text-center">
+              <h5 class="card-title fw-bold">Keindahan Belitung</h5>
+              <p class="card-text">Tur pantai pasir putih, pulau-pulau kecil, dan mercusuar ikonik.</p>
+              <a href="belitung.html" class="btn btn-outline-primary btn-sm view-button" id="viewButton" data-destination="Belitung">Lihat Paket</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Raja Ampat -->
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <img src="Aset/rajaampat.avif" class="card-img-top" alt="Raja Ampat">
+          <div class="card-body">
+            <div class="text-center">
+              <h5 class="card-title fw-bold">Eksplorasi Raja Ampat</h5>
+              <p class="card-text">Snorkeling, diving, dan surga bawah laut Papua Barat.</p>
+              <a href="rajaampat.html" class="btn btn-outline-primary btn-sm view-button" id="viewButton" data-destination="Raja Ampat">Lihat Paket</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <footer class="bg-light text-center py-4 mt-5 border-top">
+    <p class="mb-0">&copy; 2023 TravelEase. Seluruh hak cipta dilindungi.</p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TravelEase</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    .custom-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.5); /* gelap */
+      backdrop-filter: blur(4px);           /* blur */
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .custom-modal-content {
+      background-color: #fff;
+      padding: 24px;
+      border-radius: 12px;
+      max-width: 90%;
+      width: 400px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    body.noscroll {
+      overflow: hidden;
+    }
+
+  </style>
+
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm py-3">
+    <div class="container d-flex justify-content-between align-items-center">
+
+      <a class="navbar-brand mx-auto fw-bold" href="home.html" style="position: absolute;">
+        TravelEase
+      </a>
+
+      <div class="d-flex" style ="transform: translateX(210%);">
+        <ul class="navbar-nav flex-row">
+          <li class="nav-item me-3">
+            <a class="nav-link" href="home.html">Beranda</a>
+          </li>
+          <li class="nav-item me-3">
+            <a class="nav-link" href="about.html">Tentang Kami</a>
+          </li>
+          <li class="nav-item me-3">
+            <a class="nav-link" href="contact.html">Kontak</a>
+          </li>
+          <li class ="nav-item">
+            <a class="nav-link fw-bold" href="profile.html" title="Profil Saya">
+              <i class="fas fa-user-circle fa-lg"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </nav>
+
+  <main class="container py-4">
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="profile-card w-100">
+          <h2>Detail Profil</h2>
+          <div class="profile-item">
+            <i class="fas fa-user"></i>
+            <span id="profileName">-</span>
+          </div>
+          <div class="profile-item">
+            <i class="fas fa-envelope"></i>
+            <span id="profileEmail">-</span>
+          </div>
+          <div class="profile-item">
+            <i class="fas fa-phone"></i>
+            <span id="profilePhone">-</span>
+          </div>
+          <div class="profile-item">
+            <i class="fas fa-calendar-alt"></i>
+            <span id="profileBirthDate">-</span>
+          </div>
+          <div class="logout-btn">
+            <button onclick="logout()">Hapus Akun</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="order-history w-100">
+          <h2>Riwayat Pemesanan</h2>
+          <div id="orderList"></div> 
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="custom-modal" id="logoutModal">
+    <div class="custom-modal-content text-center">
+      <h5 class="fw-bold mb-3">Hapus Akun</h5>
+      <p class="small">Apakah Anda yakin ingin menghapus akun Anda?</p>
+      <div class="mt-4 d-flex justify-content-center gap-3">
+        <button id="logoutYes" class="btn btn-danger">Ya, Hapus</button>
+        <button id="logoutNo" class="btn btn-secondary">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+

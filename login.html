@@ -1,0 +1,62 @@
+
+<!-- POPUP AMANNNN -->
+ <!-- Sign In -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TravelEase</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="page-wrapper">
+    
+    <div class="image-section-lgn">
+      <img src="Aset/borobudur.jpg" alt="TravelEase Background">
+    </div>
+
+    <div class="form-section">
+      <h1 style="text-align: center;">TravelEase</h1>
+      <p class="subtitle">Teman seperjalanan Anda!</p>
+      <form id="login-form" action="home.html" method="POST" novalidate>
+        <label for="loginEmail">Email</label>
+        <input type="email" id="loginEmail" placeholder="email@gmail.com" required>
+        <div class="error-message" id="error-loginEmail"></div>
+
+        <label for="loginPassword">Kata Sandi</label>
+        <input type="password" id="loginPassword" placeholder="Kata Sandi" required>
+        <div class="error-message" id="error-loginPassword"></div>
+
+        <div class="form-options">
+          <label>
+            <input type="checkbox" id="rememberMe"> Ingat Saya
+          </label>
+          <a href="forgot.html">Lupa kata sandi?</a>
+        </div>
+        
+        <button type="submit">Masuk</button>
+      </form>
+
+      <div class="popup" id="failed-popup">
+        <div class="overlay"></div>
+        <div class="popup-content">
+          <h2>Gagal Login!</h2>
+          <p>Email atau kata sandi salah. Silakan coba lagi.</p>
+          <div class="controls">
+            <button class="submit-btn" id="popup-close" style="background-color: var(--primary-color);">Oke</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <p>Belum punya akun? <a href="signup.html">Daftar sekarang</a></p>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
+

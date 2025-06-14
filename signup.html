@@ -1,0 +1,83 @@
+<!-- Sign Up -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TravelEase</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+  <div class="page-wrapper">
+    
+    <div class="image-section">
+      <img src="Aset/Slider3.jpeg" alt="TravelEase Image" />
+    </div>
+
+    <div class="form-section-lgn">
+      <div class="form-content-lgn">
+        <div class="title-wrapper">
+          <h1 style="text-align: center;">TravelEase</h1>
+          <p class="subtitle">Mulai petualanganmu bersama kami!</p>
+        </div>
+
+        <form id="signup-form" novalidate>
+          <label for="name">Nama</label>
+          <input type="text" id="name" name="name" placeholder="Nama Lengkap" required />
+          <div class="error-message" id="error-name"></div>
+
+          <label for="signupEmail">Email</label>
+          <input type="email" id="signupEmail" name="email" placeholder="email@gmail.com" required />
+          <div class="error-message" id="error-email"></div>
+
+          <label for="signupPassword">Kata Sandi</label>
+          <input type="password" id="signupPassword" name="password" placeholder="Kata Sandi" required />
+          <div class="error-message" id="error-password"></div>
+
+          <label for="birthDate">Tanggal Lahir</label>
+          <input type="date" id="birthDate" name="birthDate" required />
+          <div class="error-message" id="error-birthDate"></div>
+
+          <label for="phone">Nomor Telepon</label>
+          <input type="tel" id="phone" name="phone" placeholder="08xxxxxxxxxx" required />
+          <div class="error-message" id="error-phone"></div>
+
+          <label>Jenis Kelamin</label>
+          <div class="gender-options">
+            <label><input type="radio" name="gender" value="Laki-laki" required /> Laki-laki</label>
+            <label><input type="radio" name="gender" value="Perempuan" required /> Perempuan</label>
+          </div>
+          <div class="error-message" id="error-gender"></div>
+
+          <label class="checkbox-label">
+            <input type="checkbox" id="SK" name="terms" required />
+            <p>Saya setuju dengan<a href="terms.html"> syarat dan ketentuan </a>yang berlaku</p>
+          </label>
+          <div class="error-message" id="error-terms"></div>
+
+          <button type="submit">Daftar</button>
+        </form>
+
+        <div class="popup" id="success-popup">
+          <div class="overlay"></div>
+          <div class="popup-content">
+            <h2>Berhasil!</h2>
+            <p>Akun berhasil dibuat! Silakan login.</p>
+            <div class="controls">
+              <button class="submit-btn" id="popup-confirm" style="background-color: var(--primary-color);">Oke</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer">
+          <p>Sudah mempunyai akun? <a href="login.html">Masuk</a></p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

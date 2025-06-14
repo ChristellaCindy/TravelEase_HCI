@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TravelEase</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    h2 {
+      color: #4E738D;
+      font-weight: 600;
+    }
+    .error-message {
+      color: red;
+      font-size: 0.875em;
+      margin-top: 4px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="payment-wrapper">
+      <h2 class="text-center mb-4">Form Pemesanan </h2>
+      
+      <form id="paymentForm">
+        <div class="mb-3">
+          <label for="name" class="form-label">Nama</label>
+          <input type="text" id="name" class="form-control" placeholder="Nama Lengkap" required />
+          <div class="error-message" id="error-name"></div>
+        </div>
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" id="email" class="form-control" placeholder="email@gmail.com" required />
+          <div class="error-message" id="error-email"></div>
+        </div>
+
+        <div class="mb-3">
+          <label for="phone" class="form-label">Nomor Telepon</label>
+          <input type="tel" id="phone" class="form-control" placeholder="08xxxxxxxxxx" required />
+          <div class="error-message" id="error-phone"></div>
+        </div>
+
+        <div class="mb-3">
+          <label for="destination" class="form-label">Destinasi</label>
+          <input type="text" id="destination" class="form-control" readonly />
+        </div>
+
+        <div class="mb-3">
+          <label for="departureDate" class="form-label">Tanggal Keberangkatan</label>
+          <input type="date" id="departureDate" class="form-control" required />
+          <div class="error-message" id="error-departure"></div>
+        </div>
+
+        <div class="mb-3">
+          <label for="travelers" class="form-label">Jumlah Peserta</label>
+          <input type="number" id="travelers" class="form-control" min="1" value="1" required />
+        </div>
+
+        <div class="mb-3">
+          <label for="notes" class="form-label">Catatan Tambahan</label>
+          <textarea id="notes" class="form-control" rows="3" placeholder="Opsional"></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label for="totalPrice" class="form-label">Total Harga</label>
+          <input type="text" id="totalPrice" class="form-control" value="Rp 0" readonly />
+          <div class="form-text">Harga otomatis dihitung berdasarkan jumlah traveler</div>
+        </div>
+
+        <hr />
+        <h5 class="mb-3">Pembayaran dengan Kartu</h5>
+
+        <div class="mb-3">
+          <label for="cardNumber" class="form-label">Nomor Kartu</label>
+          <input type="text" id="cardNumber" class="form-control" placeholder="1234XXXXXXXXXXXX" required />
+          <div class="error-message" id="error-card"></div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="expDate" class="form-label">Tanggal Kedaluwarsa (MM/YY)</label>
+            <input type="text" id="expDate" class="form-control" placeholder="12/25" required />
+            <div class="error-message" id="error-exp"></div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="cvv" class="form-label">CVV</label>
+            <input type="text" id="cvv" class="form-control" placeholder="123" required />
+            <div class="error-message" id="error-cvv"></div>
+          </div>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary w-100">Konfirmasi Pesanan</button>
+        <br>
+        <div style="text-align: right;">
+          <a href="home.html" style="color: var(--primary-color); text-decoration: none;">
+            Batalkan
+          </a>
+        </div>
+
+      </form>
+
+    <div class="custom-modal" id="confirmationModal">
+      <div class="custom-modal-content">
+        <h5 class="mb-3 fw-bold">Detail Pemesanan</h5>
+        <div id="orderDetails" class="text-start small"></div> 
+        <div class="custom-modal-buttons mt-4">
+          <button id="confirmYes" class="btn btn-success">Konfirmasi</button>
+          <button id="confirmNo" class="btn btn-secondary">Batalkan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="custom-modal" id="successPopup">
+    <div class="custom-modal-content text-center">
+      <h5 class="fw-bold mb-3">Pemesanan Berhasil!</h5>
+      <p class="small">Terima kasih telah melakukan pemesanan. Kami akan menghubungi Anda segera.</p>
+      <button id="successConfirm" class="btn btn-primary mt-3" style="background-color: var(--primary-color); border: none; color: white;">OK</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+const nameInput = document.getElementById("name");
+const emailInput = document.getElementById("email");
+const phoneInput = document.getElementById("phone");
+const destinationInput = document.getElementById("destination");
+const departureInput = document.getElementById("departureDate");
+const travelersInput = document.getElementById("travelers");
+const totalPriceInput = document.getElementById("totalPrice");
+const paymentForm = document.getElementById("paymentForm");
+const cardNumberInput = document.getElementById("cardNumber");
+const expDateInput = document.getElementById("expDate");
+const cvvInput = document.getElementById("cvv");
+
+const destinationPrices = {
+  "Bali": 2750000,
+  "Yogyakarta": 3100000,
+  "Bandung": 2500000,
+  "Lombok": 3200000,
+  "Belitung": 2200000,
+  "Medan": 2200000,
+  "Malang": 2700000,
+  "Pontianak": 2200000,
+  "Raja Ampat": 5800000,
+};
+
+function showError(inputEl, errorId, message) {
+  inputEl.classList.add("invalid");
+  const el = document.getElementById(errorId);
+  if (el) el.textContent = message;
+}
+
+function clearError(inputEl, errorId) {
+  inputEl.classList.remove("invalid");
+  const el = document.getElementById(errorId);
+  if (el) el.textContent = "";
+}
+
+function calculateTotal() {
+  const jumlah = parseInt(travelersInput.value) || 1;
+  const selectedDestination = destinationInput.value;
+  const basePrice = destinationPrices[selectedDestination] || 0;
+  let total = basePrice * jumlah;
+  if (jumlah >= 10) total -= 200000 * jumlah;
+  totalPriceInput.value = "Rp " + total.toLocaleString("id-ID");
+}
+
+function validateName() {
+  const value = nameInput.value.trim();
+  const regex = /^[A-Z][a-zA-Z ]*$/;
+  if (!regex.test(value)) {
+    showError(nameInput, "error-name", "Nama harus diawali huruf kapital dan hanya huruf.");
+    return false;
+  }
+  clearError(nameInput, "error-name");
+  return true;
+}
+
+function validateEmail() {
+  const value = emailInput.value.trim();
+  const regex = /^[^@]+@[^@]+\.[^@]+$/;
+  if (!regex.test(value)) {
+    showError(emailInput, "error-email", "Format email tidak valid.");
+    return false;
+  }
+  clearError(emailInput, "error-email");
+  return true;
+}
+
+function validatePhone() {
+  const value = phoneInput.value.trim();
+  const regex = /^[0-9]{10,13}$/;
+  if (!regex.test(value)) {
+    showError(phoneInput, "error-phone", "Nomor telepon harus 10–13 digit angka.");
+    return false;
+  }
+  clearError(phoneInput, "error-phone");
+  return true;
+}
+
+function validateDeparture() {
+  const value = departureInput.value;
+  if (!value) {
+    showError(departureInput, "error-departure", "Tanggal keberangkatan wajib diisi.");
+    return false;
+  }
+  const selectedDate = new Date(value);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  if (selectedDate < today) {
+    showError(departureInput, "error-departure", "Tanggal keberangkatan tidak boleh di masa lalu.");
+    return false;
+  }
+  clearError(departureInput, "error-departure");
+  return true;
+}
+
+function validateCardNumber() {
+  const value = cardNumberInput.value.trim();
+  if (!/^\d{16}$/.test(value)) {
+    showError(cardNumberInput, "error-card", "Nomor kartu harus 16 digit angka.");
+    return false;
+  }
+  clearError(cardNumberInput, "error-card");
+  return true;
+}
+
+function validateExpDate() {
+  const value = expDateInput.value.trim();
+  const regex = /^(0[1-9]|1[0-2])\/\d{2}$/;
+  if (!regex.test(value)) {
+    showError(expDateInput, "error-exp", "Format exp tidak valid (MM/YY).");
+    return false;
+  }
+  const [month, year] = value.split("/").map(Number);
+  const now = new Date();
+  const currentMonth = now.getMonth() + 1;
+  const currentYear = now.getFullYear() % 100;
+  if (year < currentYear || (year === currentYear && month < currentMonth)) {
+    showError(expDateInput, "error-exp", "Tanggal exp tidak boleh sebelum bulan ini.");
+    return false;
+  }
+  clearError(expDateInput, "error-exp");
+  return true;
+}
+
+function validateCVV() {
+  const value = cvvInput.value.trim();
+  if (!/^\d{3}$/.test(value)) {
+    showError(cvvInput, "error-cvv", "CVV harus 3 digit angka.");
+    return false;
+  }
+  clearError(cvvInput, "error-cvv");
+  return true;
+}
+
+// });
+
+
+// document.addEventListener("DOMContentLoaded", function () {
+  const storedName = localStorage.getItem("userName");
+  const storedEmail = localStorage.getItem("userEmail");
+  const storedPhone = localStorage.getItem("userPhone");
+  const selectedDestination = localStorage.getItem("selectedDestination");
+  const departureDate = localStorage.getItem("departureDate");
+
+  if (storedName) nameInput.value = storedName;
+  if (storedEmail) emailInput.value = storedEmail;
+  if (storedPhone) phoneInput.value = storedPhone;
+  if (selectedDestination) destinationInput.value = selectedDestination;
+  if (departureInput) {
+    const today = new Date().toISOString().split("T")[0];
+    departureInput.setAttribute("min", today);
+    if (departureDate) departureInput.value = departureDate;
+  }
+
+  travelersInput.addEventListener("input", calculateTotal);
+  calculateTotal();
+
+  nameInput.addEventListener("input", validateName);
+  emailInput.addEventListener("input", validateEmail);
+  phoneInput.addEventListener("input", validatePhone);
+  departureInput.addEventListener("change", validateDeparture);
+  cardNumberInput.addEventListener("input", validateCardNumber);
+  expDateInput.addEventListener("input", validateExpDate);
+  cvvInput.addEventListener("input", validateCVV);
+
+  paymentForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const valid = [
+      validateName(),
+      validateEmail(),
+      validatePhone(),
+      validateDeparture(),
+      validateCardNumber(),
+      validateExpDate(),
+      validateCVV()
+    ];
+
+    if (valid.includes(false)) return;
+
+    const confirmationModal = document.getElementById("confirmationModal");
+    const orderDetails = document.getElementById("orderDetails");
+    const confirmYes = document.getElementById("confirmYes");
+    const confirmNo = document.getElementById("confirmNo");
+
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
+    const phone = phoneInput.value.trim();
+
+    orderDetails.innerHTML = `
+      <p><strong>Nama:</strong> ${name}</p>
+      <p><strong>Email:</strong> ${email}</p>
+      <p><strong>No. Telepon:</strong> ${phone}</p>
+      <p><strong>Destinasi:</strong> ${destinationInput.value}</p>
+      <p><strong>Tanggal Keberangkatan:</strong> ${departureInput.value}</p>
+      <p><strong>Jumlah Peserta:</strong> ${travelersInput.value}</p>
+      <p><strong>Catatan:</strong> ${document.getElementById("notes").value || '-'}</p>
+      <p><strong>Total Harga:</strong> ${totalPriceInput.value}</p>
+    `;
+
+    confirmationModal.style.display = "flex";
+    document.body.style.overflow = "hidden";
+
+    confirmYes.onclick = function () {
+      confirmationModal.style.display = "none";
+      document.body.style.overflow = "auto";
+      const booking = {
+        name,
+        email,
+        phone,
+        destination: destinationInput.value,
+        date: departureInput.value,
+        travelers: travelersInput.value,
+        notes: document.getElementById("notes").value || "-",
+        price: totalPriceInput.value,
+        timestamp: new Date().toISOString(),
+      };
+
+      const history = JSON.parse(localStorage.getItem("bookingHistory")) || [];
+      history.push(booking);
+      localStorage.setItem("bookingHistory", JSON.stringify(history));
+
+      // alert("Pemesanan berhasil! Kami akan menghubungi Anda segera.");
+      // window.location.href = "home.html";
+
+      const successPopup = document.getElementById("successPopup");
+      const successConfirm = document.getElementById("successConfirm");
+
+      successPopup.style.display = "flex";
+      document.body.classList.add("noscroll");
+
+      successConfirm.addEventListener("click", function () {
+        successPopup.style.display = "none";
+        document.body.classList.remove("noscroll");
+        window.location.href = "home.html";
+      });
+
+    };
+
+    confirmNo.onclick = function () {
+      confirmationModal.style.display = "none";
+      document.body.style.overflow = "auto";
+    };
+  });
+});
+
+  </script>
+</body>
+</html>
